@@ -1,0 +1,6 @@
+#!/bin/bash
+
+mkdir -p "$(dirname "$0")/deluge-config"
+mkdir -p "$(dirname "$0")/etc-openvpn"
+
+docker build -t deluge-with-openvpn "$(dirname "$0")"

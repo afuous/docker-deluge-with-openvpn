@@ -1,0 +1,5 @@
+#!/bin/bash
+
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' deluge-with-openvpn-container
+
+# https://stackoverflow.com/questions/17157721/how-to-get-a-docker-containers-ip-address-from-the-host

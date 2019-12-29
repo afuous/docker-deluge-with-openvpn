@@ -1,0 +1,25 @@
+#!/bin/bash
+
+mkdir -p "$(dirname "$0")/deluge-config"
+mkdir -p "$(dirname "$0")/etc-openvpn"
+
+downloadslocation="$1"
+
+if [ -z "$downloadslocation" ]; then
+	>&2 echo 'Usage: run <downloads location>'
+	exit
+fi
+
+docker run \
+  -d \
+  --rm \
+  --privileged \
+  --sysctl net.ipv6.conf.all.disable_ipv6=0 \
+  --name deluge-with-openvpn-container \
+  --expose 8112 \
+  -v "$(readlink -f "$(dirname "$0")")/deluge-config:/home/$USER/.config/deluge" \
+  -v "$(readlink -f "$(dirname "$0")")/etc-openvpn:/etc/openvpn" \
+  -v "$(readlink -f "$downloadslocation"):/home/$USER/Downloads" \
+  deluge-with-openvpn $USER $(id -u $USER) $(id -g $USER)
+
+# https://github.com/haugene/docker-transmission-openvpn/issues/960
