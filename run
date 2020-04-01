@@ -16,7 +16,7 @@ docker run \
   --privileged \
   --sysctl net.ipv6.conf.all.disable_ipv6=0 \
   --name deluge-with-openvpn-container \
-  --expose 8112 \
+  -p 127.0.0.1:8112:8112 \
   -v "$(readlink -f "$(dirname "$0")")/deluge-config:/home/$USER/.config/deluge" \
   -v "$(readlink -f "$(dirname "$0")")/etc-openvpn:/etc/openvpn" \
   -v "$(readlink -f "$downloadslocation"):/home/$USER/Downloads" \

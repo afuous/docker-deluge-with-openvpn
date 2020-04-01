@@ -10,11 +10,12 @@ Put all relevant OpenVPN configuration files in `etc-openvpn`, which is mounted 
 mv mullvad_*-*.conf config.ovpn
 sed -i 's/^ca mullvad_ca.crt$/ca \/etc\/openvpn\/mullvad_ca.crt/' config.ovpn
 sed -i 's/^auth_user_pass mullvad_userpass.txt$/auth_user_pass \/etc\/openvpn\/mullvad_userpass.txt/' config.ovpn
+chmod +x update-resolv-conf
 ```
 
 ## Usage
 
-Build the image with `build`. To run the container, use `run <downloads location>`. For example, `./run ~/Downloads`. To access the web UI from localhost, get the IP address of the docker container with `containerip`, and access that IP address over HTTP at port 8112. Stop the container with `stop`, and get a shell in the container with `getshell` in case something goes wrong.
+Build the image with `build`. To run the container, use `run <downloads location>`. For example, `./run ~/Downloads`. Access the web UI at `http://localhost:8112/`. Stop the container with `stop`, and get a shell in the container with `getshell` in case something goes wrong.
 
 ## Permissions
 
