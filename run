@@ -10,6 +10,8 @@ if [ -z "$downloadslocation" ]; then
 	exit
 fi
 
+username=torrenter
+
 docker run \
   -d \
   --rm \
@@ -17,9 +19,9 @@ docker run \
   --sysctl net.ipv6.conf.all.disable_ipv6=0 \
   --name deluge-with-openvpn-container \
   -p 127.0.0.1:8112:8112 \
-  -v "$(readlink -f "$(dirname "$0")")/deluge-config:/home/$USER/.config/deluge" \
+  -v "$(readlink -f "$(dirname "$0")")/deluge-config:/home/$username/.config/deluge" \
   -v "$(readlink -f "$(dirname "$0")")/etc-openvpn:/etc/openvpn" \
-  -v "$(readlink -f "$downloadslocation"):/home/$USER/Downloads" \
-  deluge-with-openvpn $USER $(id -u $USER) $(id -g $USER)
+  -v "$(readlink -f "$downloadslocation"):/home/$username/Downloads" \
+  deluge-with-openvpn $username $(id -u $(whoami)) $(id -g $(whoami))
 
 # https://github.com/haugene/docker-transmission-openvpn/issues/960
