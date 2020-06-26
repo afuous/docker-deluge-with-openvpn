@@ -7,6 +7,13 @@ gid=$3
 groupadd --gid $gid $user
 useradd -m --uid $uid --gid $gid $user
 
+# https://github.com/kylemanna/docker-openvpn/issues/39#issuecomment-100984364
+# https://github.com/kylemanna/docker-openvpn/blob/master/bin/ovpn_run#L57-L60
+mkdir -p /dev/net
+if [ ! -c /dev/net/tun ]; then
+	    mknod /dev/net/tun c 10 200
+fi
+
 startip="$(curl https://api.ipify.org/)"
 while true; do
 	openvpn --config /etc/openvpn/config.ovpn > /tmp/openvpnoutput &

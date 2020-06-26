@@ -13,7 +13,7 @@ fi
 docker run \
   -d \
   --rm \
-  --privileged \
+  --cap-add NET_ADMIN \
   --sysctl net.ipv6.conf.all.disable_ipv6=0 \
   --name deluge-with-openvpn-container \
   -p 127.0.0.1:8112:8112 \
