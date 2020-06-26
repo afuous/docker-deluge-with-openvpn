@@ -18,9 +18,9 @@ startip="$(curl https://api.ipify.org/)"
 while true; do
 	openvpn --config /etc/openvpn/config.ovpn > /tmp/openvpnoutput &
 	openvpnpid=$!
-	sleep 2
+	sleep 5
 	if [ ! "$(cat /tmp/openvpnoutput | tail -n 1 | grep 'UDP link remote')" ]; then
-		sleep 10
+		sleep 20
 		newip="$(curl https://api.ipify.org/)"
 		curlexitcode=$?
 		if [ $curlexitcode == 0 ] && [ "$newip" != "$startip" ]; then
